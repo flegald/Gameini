@@ -7,7 +7,6 @@
 
 ####-David Flegal
 
-###-Daniel Zwelling
+####-Daniel Zwelling
 
-
-###-Mike Harrison
+####-Mike Harrison
