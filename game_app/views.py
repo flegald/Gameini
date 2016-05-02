@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
-from game_app.forms import GameForm
+from game_app.forms import GameForm, UploadForm
 
 
 def home_view(request):
@@ -13,8 +13,15 @@ def home_view(request):
         return redirect('files/{}'.format(form.data['games']))
     else:
         form = GameForm()
-        import pdb; pdb.set_trace()
-        return render(request, 'home.html', context={'form': form})
+        upload_form = UploadForm()
+        return render(request, 'home.html', context={'form': form, 'upload_form': upload_form})
+
+
+def upload_view(request):
+    """Upload file."""
+    upload_form = UploadForm(request.POST, request.FILES)
+    upload_form.save()
+    return redirect('/')
 
 
 def download_file(request, **kwargs):
