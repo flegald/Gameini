@@ -1,4 +1,17 @@
 <p> Download Ini </p>
 {{ file }}
 
-<a href="files/1">Click Here</a>
+
+<form action='' method='post'>
+{% csrf_token %}
+{{ form }}
+<button value="submit">Submit</button>
+</form>
+
+
+<h3>Upload</h3>
+<form action='files/upload' method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ upload_form }}
+    <button value="submit">Submit</button>
+</form>

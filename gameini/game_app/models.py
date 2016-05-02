@@ -5,3 +5,6 @@ class GameModel(models.Model):
 
     title = models.CharField(default='', max_length=255)
     ini_file = models.FileField(upload_to='ini_files')
+
+    def __str__(self):
+        return self.title
