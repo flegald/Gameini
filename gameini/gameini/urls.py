@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from Gameini.views import placeholder
+from gameini.views import placeholder
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
