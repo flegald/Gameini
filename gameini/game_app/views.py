@@ -10,9 +10,8 @@ def placeholder(request):
     return render(request, 'placeholder.html')
 
 
-def view_file(request, **kwargs):
+def download_file(request, **kwargs):
     """View file."""
-    # import pdb; pdb.set_trace()
     file_id = kwargs.get('file_id')
     file_object = GameModel.objects.filter(id=file_id).first()
     file_name = file_object.ini_file.name
@@ -20,10 +19,3 @@ def view_file(request, **kwargs):
     response = HttpResponse(file, content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename={}'.format(file_name)
     return response
-
-
-def download_file(request, file_name):
-    """Download ini file."""
-    file = GameModel.objects.get(title=file_name).ini_file.name
-    file = file.split('/')[-1]
-    response = HttpResponse
