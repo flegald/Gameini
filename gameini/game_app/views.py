@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from .models import GameModel
 
 
-def placeholder(request):
+def home_view(request):
     """Place holder view."""
-    return render(request, 'placeholder.html')
+    return render(request, 'home.html')
 
 
 def download_file(request, **kwargs):
