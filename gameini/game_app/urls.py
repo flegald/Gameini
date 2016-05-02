@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from game_app.views import placeholder
+from game_app.views import view_file
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', placeholder)
+    url(r'^files/(?P<file_id>[0-9]+)', view_file, name='view_file'),
 ]
