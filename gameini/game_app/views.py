@@ -16,7 +16,9 @@ def home_view(request):
         upload_form = UploadForm()
         return render(request, 'home.html', context={'form': form, 'upload_form': upload_form})
 
+
 def upload_view(request):
+    """Upload file."""
     upload_form = UploadForm(request.POST, request.FILES)
     upload_form.save()
     return redirect('/')
