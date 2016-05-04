@@ -1,7 +1,5 @@
 from django import forms
-from game_app.views import GameModel
-
-
+from game_app.models import GameModel
 
 
 class GameForm(forms.Form):
