@@ -40,6 +40,10 @@
             </form>
             </li>
             </ul>
+            <form id='settings_form' action="" method="POST">
+                {% csrf_token %}
+                {{ settings_form }}
+            </form>
             <p id='warning'>*Please note that these files take specific values. We will not be responsible for you corrupting your file.</p>
             <hr />
 
@@ -66,7 +70,7 @@
                     $("#infoSection").fadeToggle()
                 }
             })
-            
+
         </script>
         </body>
     </body>
