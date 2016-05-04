@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
-from game_app.junk_drawer import config_section_map
+from game_app.junk_drawer import config_section_map, change_settings
 from game_app.forms import GameForm, UploadForm
 try:
     import ConfigParser as Config
@@ -36,10 +36,9 @@ def generate_form(request, **kwargs):
     parsed_file = config_section_map(file.ini_file.file)
     if request.method == 'GET':
         return render(request, 'home.html', context={'parsed_file': parsed_file})
-    new_file = request.body.decode('utf8')
-    new_file = new_file.split('&')
-    for idx, item in enumerate(new_file):
-        new_file[idx] = item.replace('+', ' ')
+    form_data = request.POST
+    copy = file.ini_file.file
+    change_settings(form_data, copy)
     import pdb; pdb.set_trace()
 
 

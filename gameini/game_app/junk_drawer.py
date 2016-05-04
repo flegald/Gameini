@@ -1,3 +1,4 @@
+"""File to store helper functions."""
 try:
     import ConfigParser as configparser
 except ImportError:
@@ -10,14 +11,10 @@ logger = logging.getLogger(__name__)
 
 def config_section_map(file):
     """Parse the ini into a dictionary."""
-    if file.tell():
-        file.seek(0)
     config = configparser.ConfigParser()
-    bytes_content = file.read()
-    str_content = bytes_content.decode('utf8')
+    str_content = reset_file(file)
     config.read_string(str_content)
     section = config.sections()[0]
-
     dict1 = {}
     options = config.options(section)
     for option in options:
@@ -29,4 +26,28 @@ def config_section_map(file):
             logging.error("exception on %s!" % option)
             dict1[option] = None
     return dict1
+
+
+def reset_file(file):
+    """Move file cursor back to byte 0 and set encoding."""
+    file.seek(0)
+    bytes_content = file.read()
+    str_content = bytes_content.decode('utf8')
+    return str_content
+
+
+def change_settings(form_data, file):
+    """Return file with new settings."""
+    config = configparser.ConfigParser()
+    str_content = reset_file(file)
+    config.read(str_content)
+    setting = config.sections()[0]
+    for item in form_data:
+        config.set(setting, item[0], item[1])
+    return str_content
+
+
+
+
+
 
