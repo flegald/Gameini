@@ -19,13 +19,14 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.conf import settings
 from django.contrib import admin
-from game_app.views import download_file, home_view, upload_view
+from game_app.views import download_file, home_view, upload_view, generate_form
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_view),
     url(r'^files/upload$', upload_view),
     url(r'^files/(?P<file_id>[0-9]+)', download_file, name='view_file'),
+    url(r'^generateform/(?P<file_id>[0-9]+)', generate_form, name='generate_form'), 
 ]
 urlpatterns += staticfiles_urlpatterns()
 

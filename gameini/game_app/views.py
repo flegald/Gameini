@@ -3,7 +3,12 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
+from game_app.junk_drawer import ConfigSectionMap
 from game_app.forms import GameForm, UploadForm
+try:
+    import ConfigParser as Config
+except ImportError:
+    import configparser as Config
 
 
 def home_view(request):
@@ -21,7 +26,19 @@ def upload_view(request):
     """Upload file."""
     upload_form = UploadForm(request.POST, request.FILES)
     upload_form.save()
-    return redirect('/')
+    query_title = upload_form.data['title']
+
+    instance = GameModel.objects.get(title=query_title)
+    return redirect('/generateform/{}'.format(instance.id))
+
+
+def generate_form(request, **kwargs):
+    """Generate form from uploaded file."""
+    file_id = kwargs.get('file_id')
+    file = GameModel.objects.filter(id=file_id).first()
+    ConfigSectionMap(file.ini_file.open())
+
+
 
 
 def download_file(request, **kwargs):

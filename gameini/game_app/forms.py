@@ -12,3 +12,7 @@ class UploadForm(forms.ModelForm):
     class Meta:
         model = GameModel
         fields = ['title', 'ini_file']
+
+# class DynoForm(forms.Form):
+#     def __init__(self, *args, **kwargs):
+#         forms.Form.__init__(self, *args, **kwargs):
