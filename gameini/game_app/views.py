@@ -34,7 +34,13 @@ def generate_form(request, **kwargs):
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
     parsed_file = config_section_map(file.ini_file.file)
-    return render(request, 'home.html', context={'parsed_file': parsed_file})
+    if request.method == 'GET':
+        return render(request, 'home.html', context={'parsed_file': parsed_file})
+    new_file = request.body.decode('utf8')
+    new_file = new_file.split('&')
+    for idx, item in enumerate(new_file):
+        new_file[idx] = item.replace('+', ' ')
+    import pdb; pdb.set_trace()
 
 
 def download_file(request, **kwargs):

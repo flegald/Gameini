@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^$', home_view),
     url(r'^files/upload$', upload_view),
     url(r'^files/(?P<file_id>[0-9]+)', download_file, name='view_file'),
-    url(r'^generateform/(?P<file_id>[0-9]+)', generate_form, name='generate_form'), 
+    url(r'^generateform/(?P<file_id>[0-9]+)', generate_form, name='generate_form'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 
