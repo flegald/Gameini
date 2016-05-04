@@ -65,3 +65,4 @@ target/
 #Django Game
 pip-selfcheck.json
 pyvenv.cfg
+.DS_Store
