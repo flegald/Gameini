@@ -27,7 +27,6 @@ def upload_view(request):
     upload_form = UploadForm(request.POST, request.FILES)
     upload_form.save()
     query_title = upload_form.data['title']
-
     instance = GameModel.objects.get(title=query_title)
     return redirect('/generateform/{}'.format(instance.id))
 
@@ -36,9 +35,7 @@ def generate_form(request, **kwargs):
     """Generate form from uploaded file."""
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
-    ConfigSectionMap(file.ini_file.open())
-
-
+    ConfigSectionMap(file.ini_file)
 
 
 def download_file(request, **kwargs):
