@@ -18,7 +18,7 @@
 
             <h2> Gameini </h2>
             <hr />
-            <h3><a id='info' href='#'>Information</a></h3>
+            <h3 id="infotitle"><a id='info' href='#'>Information</a></h3>
 
             <ul>
             <li>
@@ -44,7 +44,7 @@
             <hr />
 
             <article id='infoSection'>
-                <h2 id='info header'>Information</h2>
+                <a href="#" id="info2"><img src="{% static 'images/white.png' %}" id="uparrow"/></a>
                 <h4>Where to find your game's .ini file</h4>
                     <p>If you are editting a Steam game most Steam games live in </br>/programfiles/steam/app/common/</br> You should have a list of games in your inventory and you can search around those files.</p>
                     <p>Another very helpful way to find the location of a game's .ini file is to Google it.</br>
@@ -64,6 +64,20 @@
                         'slow');
                 } else {
                     $("#infoSection").fadeToggle()
+                }
+            })
+            
+            $('#info2').on('click', function(){
+                if ($('#infoSection').is(':hidden')){
+                    $('#infoSection').fadeToggle()
+                    $("html,body").animate({
+                        scrollTop: $('body').offset().top},
+                        'slow');
+                } else {
+                    $("#infoSection").fadeToggle()
+                    $("html,body").animate({
+                        scrollTop: $('body').offset().top},
+                        'slow');
                 }
             })
             

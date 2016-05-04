@@ -15,6 +15,23 @@ hr {
     border-radius: 3%; 
 }
 
+#infotitle {
+    text-align: right;
+}
+
+#uparrow {
+    float: right;
+    max-width: 1em;
+
+}
+/*#info2 {
+    padding: 5px;
+    border-bottom: .5px solid white;
+    border-right: .5px solid white;
+    border-left: .5px solid white;
+    border-radius: 3%; 
+}*/
+
 form#uploadForm {
     text-align: center;
     width: 400px;
