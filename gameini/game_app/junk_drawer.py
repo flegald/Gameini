@@ -1,25 +1,32 @@
 try:
-    import ConfigParser as Config
+    import ConfigParser as configparser
 except ImportError:
-    import configparser as Config
+    import configparser
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-def ConfigSectionMap(file):
+def config_section_map(file):
     """Parse the ini into a dictionary."""
-    config = Config.ConfigParser()
-    config.read(file)
+    if file.tell():
+        file.seek(0)
+    config = configparser.ConfigParser()
+    bytes_content = file.read()
+    str_content = bytes_content.decode('utf8')
+    config.read_string(str_content)
     section = config.sections()[0]
 
     dict1 = {}
-    options = Config.options(section)
-    import pdb; pdb.set_trace()
+    options = config.options(section)
     for option in options:
         try:
-            dict1[option] = Config.get(section, option)
+            dict1[option] = config.get(section, option)
             if dict1[option] == -1:
-                DebugPrint("skip: %s" % option)
+                logging.warn("skip: %s" % option)
         except:
-            print("exception on %s!" % option)
+            logging.error("exception on %s!" % option)
             dict1[option] = None
     return dict1
 
