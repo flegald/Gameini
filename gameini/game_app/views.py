@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
-from game_app.junk_drawer import ConfigSectionMap
+from game_app.junk_drawer import config_section_map
 from game_app.forms import GameForm, UploadForm
 try:
     import ConfigParser as Config
@@ -25,9 +25,7 @@ def home_view(request):
 def upload_view(request):
     """Upload file."""
     upload_form = UploadForm(request.POST, request.FILES)
-    upload_form.save()
-    query_title = upload_form.data['title']
-    instance = GameModel.objects.get(title=query_title)
+    instance = upload_form.save()
     return redirect('/generateform/{}'.format(instance.id))
 
 
@@ -35,7 +33,7 @@ def generate_form(request, **kwargs):
     """Generate form from uploaded file."""
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
-    ConfigSectionMap(file.ini_file)
+    config_section_map(file.ini_file.file)
 
 
 def download_file(request, **kwargs):
