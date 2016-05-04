@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
 from game_app.junk_drawer import config_section_map
-from game_app.forms import GameForm, UploadForm, DynoForm
+from game_app.forms import GameForm, UploadForm
 try:
     import ConfigParser as Config
 except ImportError:
@@ -34,9 +34,8 @@ def generate_form(request, **kwargs):
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
     parsed_file = config_section_map(file.ini_file.file)
-    settings_form = DynoForm(initial=parsed_file)
-    import pdb; pdb.set_trace()
-    return render(request, 'home.html', context={'settings_form': settings_form})
+    return render(request, 'home.html', context={'parsed_file': parsed_file})
+
 
 def download_file(request, **kwargs):
     """View file."""

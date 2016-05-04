@@ -42,7 +42,10 @@
             </ul>
             <form id='settings_form' action="" method="POST">
                 {% csrf_token %}
-                {{ settings_form }}
+                {% for field, value in parsed_file.items %}
+                    <label for="{{ field }}">{{ field }}:</label>
+                    <input name="{{ field }}" type="text" value="{{ value }}"></input>
+                {% endfor %}
             </form>
             <p id='warning'>*Please note that these files take specific values. We will not be responsible for you corrupting your file.</p>
             <hr />
