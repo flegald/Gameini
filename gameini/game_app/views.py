@@ -41,7 +41,7 @@ def generate_form(request, **kwargs):
     temp = change_settings(section, form_data, copy)
     temp.seek(0)
     response = HttpResponse(temp, content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename={}'.format(temp.name)
+    response['Content-Disposition'] = 'attachment; filename={}.ini'.format(file.title)
     temp.close()
     return response
 
