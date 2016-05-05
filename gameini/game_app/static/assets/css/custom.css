@@ -15,6 +15,15 @@ hr {
     border-radius: 3%; 
 }
 
+#infotitle {
+    text-align: right;
+}
+
+#uparrow {
+    float: right;
+    max-width: 1em;
+}
+
 form#uploadForm {
     text-align: center;
     width: 400px;
@@ -67,3 +76,6 @@ li {
     width: 20px;
 }
 
+.fa-github {
+    font-size: 4em;
+}
