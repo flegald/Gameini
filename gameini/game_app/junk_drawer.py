@@ -1,4 +1,5 @@
 """File to store helper functions."""
+import tempfile
 try:
     import ConfigParser as configparser
 except ImportError:
@@ -44,7 +45,13 @@ def change_settings(section, form_data, file):
     setting = section
     for item in form_data.keys():
         config.set(setting, item, form_data[item])
-    return str_content
+        # Figure out how to write to temp files
+        # Unicode? Bytes?
+        # DROP TABLES
+    temp = tempfile.TemporaryFile(suffix='ini', mode='w+r')
+    temp.write(str_content)
+    # import pdb; pdb.set_trace()
+    return temp
 
 
 

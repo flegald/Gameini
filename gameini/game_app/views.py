@@ -39,7 +39,7 @@ def generate_form(request, **kwargs):
     form_data = request.POST
     copy = file.ini_file.file
     change_settings(section, form_data, copy)
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
 
 
 def download_file(request, **kwargs):
