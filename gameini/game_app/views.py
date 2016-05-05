@@ -38,8 +38,12 @@ def generate_form(request, **kwargs):
         return render(request, 'home.html', context={'parsed_file': parsed_file})
     form_data = request.POST
     copy = file.ini_file.file
-    change_settings(section, form_data, copy)
+    temp = change_settings(section, form_data, copy)
+    temp.seek(0)
     # import pdb; pdb.set_trace()
+    response = HttpResponse(temp, content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename={}'.format(temp.name)
+    return response
 
 
 def download_file(request, **kwargs):
@@ -48,6 +52,3 @@ def download_file(request, **kwargs):
     file_object = GameModel.objects.filter(id=file_id).first()
     file_name = file_object.ini_file.name
     file = file_object.ini_file.read()
-    response = HttpResponse(file, content_type='text/plain')
-    response['Content-Disposition'] = 'attachment; filename={}'.format(file_name)
-    return response

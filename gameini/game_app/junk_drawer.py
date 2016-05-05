@@ -45,16 +45,11 @@ def change_settings(section, form_data, file):
     setting = section
     for item in form_data.keys():
         config.set(setting, item, form_data[item])
-        # Figure out how to write to temp files
-        # Unicode? Bytes?
-        # DROP TABLES
-    temp = tempfile.TemporaryFile(suffix='ini', mode='w+r')
+
+
+    temp = tempfile.TemporaryFile(suffix='ini', mode='w+')
+    config.write(temp)
     temp.write(str_content)
-    # import pdb; pdb.set_trace()
+
     return temp
-
-
-
-
-
 
