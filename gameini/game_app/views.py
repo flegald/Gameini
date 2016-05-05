@@ -45,10 +45,3 @@ def generate_form(request, **kwargs):
     temp.close()
     return response
 
-
-def download_file(request, **kwargs):
-    """View file."""
-    file_id = kwargs.get('file_id')
-    file_object = GameModel.objects.filter(id=file_id).first()
-    file_name = file_object.ini_file.name
-    file = file_object.ini_file.read()

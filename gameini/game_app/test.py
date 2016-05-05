@@ -4,18 +4,7 @@ from .models import GameModel
 from .forms import UploadForm
 import factory
 import os
-
-
-class GameFactory(factory.django.DjangoModelFactory):
-    """Create test game model."""
-
-    class Meta:
-        """Meta."""
-
-        model = GameModel
-
-    title = factory.sequence(lambda n: 'title{}'.format(n))
-    ini_file = 'ini_files/settings.ini'
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 
 class GameTestCase(TestCase):
@@ -24,36 +13,45 @@ class GameTestCase(TestCase):
     def setUp(self):
         """Setup."""
         self.client = Client()
-        self.file = GameFactory.create()
-        self.file1 = GameFactory.create()
+        self.file = GameModel(title='grass cutters 3', ini_file='ini_files/settings.ini')
+        self.file.save()
+
     # Model Tests
 
-    def test_game_title_works(self):
-        """Assert game has title."""
-        self.assertTrue(self.file.title)
+    # def test_game_title_works(self):
+    #     """Assert game has title."""
+    #     self.assertTrue(self.file.title)
 
-    def test_game_file_works(self):
-        """Assert game has file."""
-        self.assertTrue(self.file.ini_file)
+    # def test_game_file_works(self):
+    #     """Assert game has file."""
+    #     self.assertTrue(self.file.ini_file)
 
-    def test_in_db(self):
-        """Assert files in DB."""
-        self.assertEqual(len(GameModel.objects.all()), 2)
+    # def test_in_db(self):
+    #     """Assert files in DB."""
+    #     self.assertEqual(len(GameModel.objects.all()), 1)
 
-    # View Tests
+    # # View Tests
 
-    def test_home_view_get(self):
-        """Test home view."""
-        self.assertEqual(self.client.get('/').status_code, 200)
+    # def test_home_view_get(self):
+    #     """Test home view."""
+    #     self.assertEqual(self.client.get('/').status_code, 200)
 
     def test_upload_view_post(self):
         """Test upload view post."""
+
+        file = GameModel(title='grass cutters 4', ini_file='ini_files/settings.ini')
+
         response = self.client.post(
-            '/files/{}'.format(self.file.id),
+
+            '/files/upload',
+            {'title': file.title, 'ini_file': file.ini_file},
+            format='multipart',
             follow=True
         )
-        # self.assertEqual(self.client.get('/files/{}'.format(self.file.id)).status_code, 200)
-        self.assertRedirects(response, '/generateform/{}'.format(self.file.id), target_status_code=200)
+
+        file = GameModel.objects.get(title='grass cutters 4')
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, '/generateform/{}'.format(file.id), status_code=302)
 
     # def test_upload_view(self):
     #     """Test upload view."""
