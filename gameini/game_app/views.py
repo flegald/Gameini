@@ -40,9 +40,9 @@ def generate_form(request, **kwargs):
     copy = file.ini_file.file
     temp = change_settings(section, form_data, copy)
     temp.seek(0)
-    # import pdb; pdb.set_trace()
     response = HttpResponse(temp, content_type='text/plain')
     response['Content-Disposition'] = 'attachment; filename={}'.format(temp.name)
+    temp.close()
     return response
 
 
