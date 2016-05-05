@@ -15,7 +15,7 @@ def home_view(request):
     """Place holder view."""
     if request.method == 'POST':
         form = GameForm(request.POST)
-        return redirect('files/{}'.format(form.data['games']))
+        return redirect('generateform/{}'.format(form.data['games']))
     else:
         form = GameForm()
         upload_form = UploadForm()
