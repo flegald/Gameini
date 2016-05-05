@@ -25,7 +25,7 @@ def config_section_map(file):
         except:
             logging.error("exception on %s!" % option)
             dict1[option] = None
-    return dict1
+    return dict1, section
 
 
 def reset_file(file):
@@ -36,14 +36,14 @@ def reset_file(file):
     return str_content
 
 
-def change_settings(form_data, file):
+def change_settings(section, form_data, file):
     """Return file with new settings."""
     config = configparser.ConfigParser()
     str_content = reset_file(file)
-    config.read(str_content)
-    setting = config.sections()[0]
-    for item in form_data:
-        config.set(setting, item[0], item[1])
+    config.read_string(str_content)
+    setting = section
+    for item in form_data.keys():
+        config.set(setting, item, form_data[item])
     return str_content
 
 

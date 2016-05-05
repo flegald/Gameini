@@ -33,12 +33,12 @@ def generate_form(request, **kwargs):
     """Generate form from uploaded file."""
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
-    parsed_file = config_section_map(file.ini_file.file)
+    parsed_file, section = config_section_map(file.ini_file.file)
     if request.method == 'GET':
         return render(request, 'home.html', context={'parsed_file': parsed_file})
     form_data = request.POST
     copy = file.ini_file.file
-    change_settings(form_data, copy)
+    change_settings(section, form_data, copy)
     import pdb; pdb.set_trace()
 
 
