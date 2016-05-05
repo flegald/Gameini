@@ -45,11 +45,7 @@ def change_settings(section, form_data, file):
     setting = section
     for item in form_data.keys():
         config.set(setting, item, form_data[item])
-
-
-    temp = tempfile.TemporaryFile(suffix='ini', mode='w+')
-    config.write(temp)
-    temp.write(str_content)
-
-    return temp
-
+    temp = tempfile.mkstemp(suffix='.ini')
+    file = open(temp[1], 'w+')
+    config.write(file)
+    return file
