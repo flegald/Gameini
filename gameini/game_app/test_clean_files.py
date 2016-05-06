@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .models import GameModel
-from game_app.junk_drawer import reset_file, config_section_map, change_settings
+from game_app.clean_files import reset_file, config_section_map, change_settings
 import io
 
 

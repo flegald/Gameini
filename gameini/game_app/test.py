@@ -11,7 +11,7 @@ class GameTestCase(TestCase):
         self.client = Client()
         self.file = GameModel(
             title='grass cutters 3',
-            ini_file='ini_files/settings.ini'
+            ini_file='ini_files/UserSettings.ini'
         )
         self.file.save()
 
@@ -39,7 +39,7 @@ class GameTestCase(TestCase):
         """Test home view with POST request."""
         file = GameModel(
             title='grass cutters 5',
-            ini_file='ini_files/settings.ini'
+            ini_file='ini_files/UserSettings.ini'
         )
         file.save()
         key = file.pk
@@ -53,7 +53,7 @@ class GameTestCase(TestCase):
 
     def test_upload_view_post(self):
         """Test upload view post."""
-        file = GameModel(title='grass cutters 4', ini_file='ini_files/settings.ini')
+        file = GameModel(title='grass cutters 4', ini_file='ini_files/UserSettings.ini')
         response = self.client.post(
             '/files/upload',
             {'title': file.title, 'ini_file': file.ini_file},
@@ -68,7 +68,7 @@ class GameTestCase(TestCase):
 
     def test_generate_form_with_download(self):
         """Test that a file is handed back to the user as a download."""
-        file = GameModel(title='grass cutters 4', ini_file='ini_files/settings.ini')
+        file = GameModel(title='grass cutters 4', ini_file='ini_files/UserSettings.ini')
         file.save()
         response = self.client.post('/generateform/{}'.format(file.pk))
         self.assertEqual(response.get('Content-Disposition'), "attachment; filename={}.ini".format(file.title))
