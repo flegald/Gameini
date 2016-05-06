@@ -4,7 +4,7 @@ from game_app.models import GameModel
 
 
 class GameForm(forms.Form):
-    """Drop down menue."""
+    """Drop down menu."""
 
     games = forms.ModelChoiceField(queryset=GameModel.objects.all(), label='title', to_field_name="pk")
 

@@ -1,17 +1,18 @@
 """File to store helper functions."""
 import tempfile
+import logging
+
 try:
     import ConfigParser as configparser
 except ImportError:
     import configparser
 
-import logging
 
 logger = logging.getLogger(__name__)
 
 
 def config_section_map(file):
-    """Parse the ini into a dictionary."""
+    """Parse ini into a dictionary, return tuple (settings, section)."""
     config = configparser.ConfigParser()
     str_content = reset_file(file)
     config.read_string(str_content)
@@ -38,7 +39,7 @@ def reset_file(file):
 
 
 def change_settings(section, form_data, file):
-    """Return file with new settings."""
+    """Return temporary file with new settings."""
     config = configparser.ConfigParser()
     str_content = reset_file(file)
     config.read_string(str_content)

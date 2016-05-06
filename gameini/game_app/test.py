@@ -9,7 +9,10 @@ class GameTestCase(TestCase):
     def setUp(self):
         """Setup."""
         self.client = Client()
-        self.file = GameModel(title='grass cutters 3', ini_file='ini_files/settings.ini')
+        self.file = GameModel(
+            title='grass cutters 3',
+            ini_file='ini_files/settings.ini'
+        )
         self.file.save()
 
     # Model Tests
@@ -23,19 +26,21 @@ class GameTestCase(TestCase):
         self.assertTrue(self.file.ini_file)
 
     def test_in_db(self):
-        """Assert files in DB."""
+        """Assert file in DB."""
         self.assertEqual(len(GameModel.objects.all()), 1)
 
-    # View Tests
+    # Home View tests
 
-    # Home Views tests
     def test_home_view_get(self):
         """Test home view with GET request."""
         self.assertEqual(self.client.get('/').status_code, 200)
 
     def test_home_view_post(self):
         """Test home view with POST request."""
-        file = GameModel(title='grass cutters 5', ini_file='ini_files/settings.ini')
+        file = GameModel(
+            title='grass cutters 5',
+            ini_file='ini_files/settings.ini'
+        )
         file.save()
         key = file.pk
         response = self.client.post(
@@ -44,7 +49,8 @@ class GameTestCase(TestCase):
         )
         self.assertRedirects(response, '/generateform/{}'.format(key), status_code=302)
 
-    # Test Upload View, view only accepts POST
+    # Upload View test
+
     def test_upload_view_post(self):
         """Test upload view post."""
         file = GameModel(title='grass cutters 4', ini_file='ini_files/settings.ini')
@@ -58,7 +64,8 @@ class GameTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, '/generateform/{}'.format(file.id), status_code=302)
 
-    # Test Generate Form View, view only accepts POST and returns a downloadable file.
+    # Generate Form View test
+
     def test_generate_form_with_download(self):
         """Test that a file is handed back to the user as a download."""
         file = GameModel(title='grass cutters 4', ini_file='ini_files/settings.ini')
