@@ -73,4 +73,3 @@ class GameTestCase(TestCase):
         response = self.client.post('/generateform/{}'.format(file.pk))
         self.assertEqual(response.get('Content-Disposition'), "attachment; filename={}.ini".format(file.title))
 
-
