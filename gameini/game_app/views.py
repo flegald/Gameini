@@ -5,17 +5,13 @@ from django.http import HttpResponse
 from game_app.models import GameModel
 from game_app.clean_files import config_section_map, change_settings
 from game_app.forms import GameForm, UploadForm
-try:
-    import ConfigParser as Config
-except ImportError:
-    import configparser as Config
 
 
 def home_view(request):
-    """Place holder view."""
+    """Home view."""
     if request.method == 'POST':
         form = GameForm(request.POST)
-        return redirect('generateform/{}'.format(form.data['games']))
+        return redirect('/generateform/{}'.format(form.data['games']))
     else:
         form = GameForm()
         upload_form = UploadForm()
@@ -30,7 +26,7 @@ def upload_view(request):
 
 
 def generate_form(request, **kwargs):
-    """Generate form from uploaded file."""
+    """Generate form based on game file settings."""
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
     parsed_file, section = config_section_map(file.ini_file.file)
