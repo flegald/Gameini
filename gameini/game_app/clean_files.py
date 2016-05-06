@@ -1,6 +1,7 @@
 """File to store helper functions."""
 import tempfile
 import logging
+import StringIO
 
 try:
     import ConfigParser as configparser
@@ -15,7 +16,11 @@ def config_section_map(file):
     """Parse ini into a dictionary, return tuple (settings, section)."""
     config = configparser.ConfigParser()
     str_content = reset_file(file)
-    config.read_string(str_content)
+    try:
+        config.read_string(str_content)
+    except AttributeError:
+        str_content = StringIO.StringIO(str_content)
+        config.readfp(str_content)
     section = config.sections()[0]
     dict1 = {}
     options = config.options(section)
@@ -42,7 +47,11 @@ def change_settings(section, form_data, file):
     """Return temporary file with new settings."""
     config = configparser.ConfigParser()
     str_content = reset_file(file)
-    config.read_string(str_content)
+    try:
+        config.read_string(str_content)
+    except AttributeError:
+        str_content = StringIO.StringIO(str_content)
+        config.readfp(str_content)
     setting = section
     for item in form_data.keys():
         config.set(setting, item, form_data[item])
