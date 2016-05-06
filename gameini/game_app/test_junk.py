@@ -19,10 +19,10 @@ class JunkTestCase(TestCase):
         """Test file has a length greater than 0."""
         file = reset_file(self.model.ini_file)
         self.assertGreater(len(file), 0)
-        
 
-    # def test_config_section_map(self):
-    #     """Test Config section map."""
-    #     parsed_dict = config_section_map(self.model.ini_file)
-    #     import pdb; pdb.set_trace
-    #     self.assertIsInstance(parsed_dict, dict)
+    def test_config_section_map(self):
+        """Test Config section map."""
+        parsed_dict = config_section_map(self.model.ini_file)
+        # import pdb; pdb.set_trace()
+        self.assertIsInstance(parsed_dict[0], dict)
+        self.assertIsInstance(parsed_dict[1], str)
