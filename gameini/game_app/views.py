@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
-from game_app.junk_drawer import config_section_map, change_settings
+from game_app.clean_files import config_section_map, change_settings
 from game_app.forms import GameForm, UploadForm
 try:
     import ConfigParser as Config
