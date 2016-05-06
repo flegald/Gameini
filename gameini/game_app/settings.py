@@ -30,9 +30,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 SECRET_KEY = 'rr11tt4ygv4-90kkp@=rgotx+8ci-jsn5e=rviw27hoo)#neqc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'ec2-52-11-118-86.us-west-2.compute.amazonaws.com']
+ALLOWED_HOSTS = ['localhost', 'ec2-52-34-232-173.us-west-2.compute.amazonaws.com']
 
 
 # Application definition
