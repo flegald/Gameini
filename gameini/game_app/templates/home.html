@@ -1,0 +1,87 @@
+{% load staticfiles %}
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        <title>Gameini</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+        <link rel='stylesheet' href="{% static 'assets/css/custom.css' %}"/>
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    </head>
+    <body class="landing">
+        <div id="page-wrapper">
+            {{ file }}
+            <h2 id='two'> Gameini </h2>
+            <hr />
+            <h3 id="infotitle"><a id='info'>Information</a></h3>
+
+            <ul id="beginForms">
+            <li>
+            <h4>Upload</h4>
+            <form id='uploadForm' action='files/upload' method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ upload_form }}
+                <button id=upload class="button special" value="submit">Submit</button>
+            </form>
+            </li>
+            <li>
+            <h4>Open file already uploaded to edit</h4>
+            <form id='dbForm' action='' method='post'>
+                {% csrf_token %}
+                {{ form }}
+                </br>
+                </br>
+                <button id='dropdown' class="button special" value="submit">Submit</button>
+            </form>
+            </li>
+            </ul>
+            <button id='reStart' class='button special'>Start Over</button>
+            <div id='settings_wrapper'>
+                <form id='settings_form' action="" method="POST">
+                    {% csrf_token %}
+                    <ul id='settingsForm'>
+                    {% for field, value in parsed_file.items %}
+                        <li>
+                            <label for="{{ field }}">{{ field }}:</label>
+                            <input name="{{ field }}" type="text" value="{{ value }}"></input>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    </br>
+                    <button id='download_butt' class="button special icon fa-download" value="submit">Download</button>
+                </form>
+            </div>
+            <p id='warning'>*Please note that these files take specific values. We will not be responsible for you corrupting your file.</p>
+            <hr />
+
+            <article id='infoSection'>
+                <a id="info2"><img src="{% static 'images/white.png' %}" id="uparrow"/></a>
+                <ul id='infoList'>
+                    <li>
+                        <h4>How To Use This Site</h4>
+                        <p>Either upload one of your own .ini files to edit, or select one from the drop down menu.</br>
+                            If you choose to upload your own make sure to put the ORIGINAL FILE'S name in the title box without the .ini extension.</br>
+                            Once you have changed the fields you would like to change click 'download' and save the file where the game expects it to be.</br>
+                            Replace the existing file</p>
+                    </li>
+                    <li>
+                    <h4>Where to find your game's .ini file</h4>
+                        <p>If you are editting a Steam game most Steam games live in </br>/programfiles/steam/app/common/</br> You should have a list of games in your inventory and you can search around those files.</p>
+                        <p>Another very helpful way to find the location of a game's .ini file is to Google it.</br>
+                        e.g. "Civ 5 ini file location"</p>
+                    </li>
+                </ul>
+                <div id='credits'>
+                <p>Visit Us On GitHub</p>
+                <a href="https://github.com/flegald/Gameini" class="icon fa-github"><span class="label">Github</span></a>
+                </div>
+            </article>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+        <script type="text/javascript" src='{% static 'assets/js/custom.js' %}'></script>
+    </body>
+</html>

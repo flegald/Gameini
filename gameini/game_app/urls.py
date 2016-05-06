@@ -14,10 +14,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
-from game_app.views import placeholder
+from game_app.views import home_view, upload_view, generate_form
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', placeholder)
+    url(r'^$', home_view),
+    url(r'^files/upload$', upload_view),
+    url(r'^generateform/(?P<file_id>[0-9]+)', generate_form, name='generate_form'),
 ]
+urlpatterns += staticfiles_urlpatterns()
+
