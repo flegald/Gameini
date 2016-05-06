@@ -1,7 +1,10 @@
 """File to store helper functions."""
 import tempfile
 import logging
-import StringIO
+try:
+    import StringIO
+except ImportError:
+    pass
 
 try:
     import ConfigParser as configparser
