@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^$', home_view),
     url(r'^files/upload$', upload_view),
     url(r'^sections/(?P<file_id>[0-9]+)', grab_sections, name='sections'),
+    url(r'^generate_form/(?P<file_id>[0-9]+)/(?P<section>.+)', generate_form, name='generate_form')
 ]
 urlpatterns += staticfiles_urlpatterns()
 

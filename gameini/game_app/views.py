@@ -30,7 +30,9 @@ def grab_sections(request, **kwargs):
     file_id = kwargs.get('file_id')
     game_file = GameModel.objects.filter(id=file_id).first().ini_file.file
     if request.method == 'POST':
-        pass
+        # SectionsForm(request.POST)
+        section = request.POST['game_sections']
+        return redirect('/generateform/{}/{}'.format(file_id, section))
     sections = separate_sections(game_file)
     sections_form = SectionsForm(sections)
     return render(request, 'home.html', context={'sections_form': sections_form})
@@ -38,6 +40,7 @@ def grab_sections(request, **kwargs):
 
 def generate_form(request, **kwargs):
     """Generate form based on game file settings."""
+    import pdb; pdb.set_trace()
     file_id = kwargs.get('file_id')
     file = GameModel.objects.filter(id=file_id).first()
     parsed_file, section = config_section_map(file.ini_file.file)
