@@ -30,7 +30,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 SECRET_KEY = 'rr11tt4ygv4-90kkp@=rgotx+8ci-jsn5e=rviw27hoo)#neqc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'ec2-52-34-232-173.us-west-2.compute.amazonaws.com']
 
@@ -82,17 +82,17 @@ WSGI_APPLICATION = 'game_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'))
-}
-
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'gamedb',
-#     }
+#     'default': dj_database_url.config(
+#         default=os.environ.get('DATABASE_URL'))
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gamedb',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators

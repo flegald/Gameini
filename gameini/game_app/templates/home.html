@@ -39,6 +39,14 @@
             </form>
             </li>
             </ul>
+            <form action='', method='POST'>
+                {% csrf_token %}
+                <select id='section_form'>
+                    {% for section in sections %}
+                        <option value='{{ section }}'>{{ section }}</option>
+                    {% endfor %}
+                </select>
+            </form>
             <button id='reStart' class='button special'>Start Over</button>
             <div id='settings_wrapper'>
                 <form id='settings_form' action="" method="POST">

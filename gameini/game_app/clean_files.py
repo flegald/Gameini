@@ -15,6 +15,19 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+def separate_sections(file):
+    """Separate file's sections."""
+    config = configparser.ConfigParser()
+    str_content = reset_file(file)
+    try:
+        config.read_string(str_content)
+    except AttributeError:
+        str_content = StringIO.StringIO(str_content)
+        config.readfp(str_content)
+    sections = config.sections()
+    return sections
+
+
 def config_section_map(file):
     """Parse ini into a dictionary, return tuple (settings, section)."""
     config = configparser.ConfigParser()

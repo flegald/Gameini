@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
-from game_app.clean_files import config_section_map, change_settings
+from game_app.clean_files import config_section_map, change_settings, separate_sections
 from game_app.forms import GameForm, UploadForm
 
 
@@ -11,7 +11,7 @@ def home_view(request):
     """Home view."""
     if request.method == 'POST':
         form = GameForm(request.POST)
-        return redirect('/generateform/{}'.format(form.data['games']))
+        return redirect('/sections/{}'.format(form.data['games']))
     else:
         form = GameForm()
         upload_form = UploadForm()
@@ -22,8 +22,15 @@ def upload_view(request):
     """Upload file."""
     upload_form = UploadForm(request.POST, request.FILES)
     instance = upload_form.save()
-    return redirect('/generateform/{}'.format(instance.id))
+    return redirect('/sections/{}'.format(instance.id))
 
+
+def grab_sections(request, **kwargs):
+    """Create Drop Down with file's sections."""
+    file_id = kwargs.get('file_id') 
+    file = GameModel.objects.filter(id=file_id).first().ini_file.file
+    sections = separate_sections(file)
+    return render(request, 'home.html', context={'sections': sections})
 
 def generate_form(request, **kwargs):
     """Generate form based on game file settings."""

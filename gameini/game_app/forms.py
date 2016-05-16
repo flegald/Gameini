@@ -17,5 +17,3 @@ class UploadForm(forms.ModelForm):
 
         model = GameModel
         fields = ['title', 'ini_file']
-
-

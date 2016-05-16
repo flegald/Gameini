@@ -16,13 +16,13 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
-from game_app.views import home_view, upload_view, generate_form
+from game_app.views import home_view, upload_view, generate_form, grab_sections
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home_view),
     url(r'^files/upload$', upload_view),
-    url(r'^generateform/(?P<file_id>[0-9]+)', generate_form, name='generate_form'),
+    url(r'^sections/(?P<file_id>[0-9]+)', grab_sections, name='sections'),
 ]
 urlpatterns += staticfiles_urlpatterns()
 
