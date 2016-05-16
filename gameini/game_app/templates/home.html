@@ -39,13 +39,10 @@
             </form>
             </li>
             </ul>
-            <form action='', method='POST'>
+            <form action='', method='POST' name='game_sections'>
                 {% csrf_token %}
-                <select id='section_form'>
-                    {% for section in sections %}
-                        <option value='{{ section }}'>{{ section }}</option>
-                    {% endfor %}
-                </select>
+                {{ sections_form }}
+                <button id="choose_section_butt" class="button special">Submit</button>
             </form>
             <button id='reStart' class='button special'>Start Over</button>
             <div id='settings_wrapper'>

@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from game_app.models import GameModel
 from game_app.clean_files import config_section_map, change_settings, separate_sections
-from game_app.forms import GameForm, UploadForm
+from game_app.forms import GameForm, UploadForm, SectionsForm
 
 
 def home_view(request):
@@ -27,10 +27,14 @@ def upload_view(request):
 
 def grab_sections(request, **kwargs):
     """Create Drop Down with file's sections."""
-    file_id = kwargs.get('file_id') 
-    file = GameModel.objects.filter(id=file_id).first().ini_file.file
-    sections = separate_sections(file)
-    return render(request, 'home.html', context={'sections': sections})
+    file_id = kwargs.get('file_id')
+    game_file = GameModel.objects.filter(id=file_id).first().ini_file.file
+    if request.method == 'POST':
+        pass
+    sections = separate_sections(game_file)
+    sections_form = SectionsForm(sections)
+    return render(request, 'home.html', context={'sections_form': sections_form})
+
 
 def generate_form(request, **kwargs):
     """Generate form based on game file settings."""
