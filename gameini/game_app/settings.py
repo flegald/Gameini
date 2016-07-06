@@ -35,7 +35,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
                     'localhost',
                     'ec2-52-34-232-173.us-west-2.compute.amazonaws.com',
-                    'https://gameini.herokuapp.com/'
+                    'https://gameini.herokuapp.com',
                 ]
 
 
